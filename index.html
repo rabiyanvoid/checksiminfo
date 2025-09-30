@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RabiyanGeek World</title>
+  <meta name="description" content="BLACK WORLD Data - Premium SIM Database, CNIC Verification, and Intelligence Services" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <style>
+    /* --- SIMPLIFIED: NEW BLACK & BLUE THEME --- */
+    :root {
+      --bg: #05070c; /* Deep space blue/black */
+      --bg-card: #10141b; /* Slightly lighter card background */
+      --light: #e8f1ff;
+      --muted: #8899aa;
+      --primary: #00aaff; /* Cool, futuristic blue */
+      --primary-dark: #0077cc;
+      --stroke: rgba(0, 170, 255, 0.2);
+      --shadow: 0 0 30px rgba(0, 170, 255, 0.1);
+      --ring: 0 0 0 3px rgba(0, 170, 255, 0.2);
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    
+    body {
+      font-family: 'Poppins', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--light);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== GLOBAL SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 8px; background: #05070c; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary-dark), var(--primary)); border-radius: 8px; }
+
+    /* ===== SIMPLIFIED BACKGROUND ===== */
+    .bg-wrap { position: fixed; inset: 0; z-index: -10; overflow: hidden; }
+    .bg-wrap::before {
+        content: "";
+        position: absolute;
+        inset: -20%;
+        background: radial-gradient(circle at 15% 20%, rgba(0, 170, 255, 0.1), transparent 40%),
+                    radial-gradient(circle at 85% 75%, rgba(0, 170, 255, 0.08), transparent 40%);
+        animation: pulseBg 20s ease-in-out infinite alternate;
+    }
+    @keyframes pulseBg {
+        from { transform: scale(1) rotate(0deg); }
+        to { transform: scale(1.1) rotate(10deg); }
+    }
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-size: 50px 50px;
+      /* --- Grid lines use new blue color --- */
+      background-image: linear-gradient(rgba(0, 170, 255, 0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 170, 255, 0.05) 1px, transparent 1px);
+      mask-image: radial-gradient(ellipse at 50% 45%, black 10%, transparent 70%);
+    }
+
+    /* ===== LAYOUT ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 28px 18px 80px; }
+    header { text-align: center; margin: 56px 0 24px; }
+
+    @keyframes dropIn { from { opacity: 0; transform: translateY(-60px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    
+    /* ===== SIMPLIFIED BRAND TITLE ===== */
+    .brand-title {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: clamp(40px, 10vw, 90px);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--light);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 
+                   0 0 15px var(--primary), 
+                   0 0 30px rgba(0, 170, 255, 0.5);
+      animation: dropIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .subtitle {
+      margin-top: 10px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; font-size: .9rem; color: var(--muted);
+      display: inline-block; overflow: hidden; white-space: nowrap; border-right: 3px solid var(--primary);
+      animation: typing 3s steps(30, end) 1s forwards, blink-caret .75s step-end infinite;
+      width: 0;
+    }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--primary); } }
+
+    /* ===== VERIFIED STRIP ===== */
+    .verified {
+      margin: 18px auto 34px; max-width: 820px; display: flex; gap: 14px; align-items: center; justify-content: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--stroke); border-radius: 16px; padding: 12px 16px; box-shadow: var(--shadow);
+    }
+    .verified svg { width: 28px; height: 28px; filter: drop-shadow(0 0 12px var(--primary)); }
+    .owner { color: var(--muted); font-size: .95rem; font-weight: 500; }
+
+    /* ===== SIMPLIFIED CARDS ===== */
+    .main-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; }
+    .card {
+      border-radius: 20px;
+      padding: 22px;
+      background: var(--bg-card); /* Solid background, no glass effect */
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      transform: translateY(14px) scale(.98);
+      opacity: 0;
+      transition: .6s cubic-bezier(.22, 1, .36, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .remember {
+      padding-right: 10px;
+
+    }
+
+    .card.reveal { transform: none; opacity: 1; }
+    .card h2 {
+      font-family: 'Orbitron', sans-serif; font-size: 1.05rem; letter-spacing: 2px; text-transform: uppercase; text-align: center; color: var(--primary);
+    }
+    .card h2 + .hr { width: 70px; height: 2px; margin: 10px auto 16px; background: linear-gradient(90deg, var(--primary-dark), var(--primary)); filter: drop-shadow(0 0 10px var(--primary)); }
+    .card p { text-align: center; color: var(--muted); line-height: 1.6; }
+
+    /* ===== FORM ===== */
+    .form { display: grid; gap: 12px; margin-top: 10px; }
+    .input-wrap { position: relative; }
+    .input-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: .85; color: var(--primary); }
+    input#phone {
+      width: 100%; padding: 16px 16px 16px 44px; border-radius: 12px; border: 1px solid var(--stroke); background: rgba(5, 7, 12, 0.5); color: var(--light);
+      font-size: 1rem; letter-spacing: 1px; outline: none; transition: .25s; font-family: 'Orbitron', sans-serif; text-align: center;
+    }
+    input#phone:focus { box-shadow: var(--ring); border-color: var(--primary); }
+    .input-guidance { font-size: .8rem; text-align: center; color: var(--muted); margin-top: 8px; opacity: 0.7; }
+    .btn {
+      border: none; border-radius: 12px; cursor: pointer; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; font-family: 'Orbitron', sans-serif;
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; width: 100%;
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+      color: #fff;
+      box-shadow: 0 14px 36px rgba(0, 170, 255, 0.2);
+      transition: transform .15s ease, box-shadow .25s ease;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 20px 44px rgba(0, 170, 255, 0.25); }
+
+    /* ===== SOCIAL ICONS ===== */
+    .social-icons { display: flex; justify-content: center; gap: 16px; margin-top: 20px; }
+    .social-icon { width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--light); transition: all 0.3s ease; border: 1px solid var(--stroke); background: rgba(255, 255, 255, 0.03); }
+    .social-icon:hover { transform: translateY(-3px); color: #fff; }
+    .social-icon.whatsapp:hover { background: #25D366; box-shadow: 0 0 15px rgba(37, 211, 102, 0.6); }
+    .social-icon.telegram:hover { background: #0088cc; box-shadow: 0 0 15px rgba(0, 136, 204, 0.6); }
+    .social-icon.email:hover { background: #c71610; box-shadow: 0 0 15px rgba(255, 17, 53, 0.6); }
+    
+    /* ===== RESULT ===== */
+    #result { margin-top: 14px; border-radius: 14px; border: 1px solid var(--stroke); background: rgba(5, 7, 12, 0.5); display: none; }
+    #result.show { display: block; }
+    .result-box { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--stroke); border-radius: 14px; padding: 16px; }
+    .result-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 14px; padding: 14px; }
+    .result-header { padding: 14px 14px 10px; border-bottom: 1px solid var(--primary); margin: 0; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--light); display: flex; justify-content: space-between; align-items: center; }
+    .result-count { background: var(--primary); color: var(--bg); padding: 3px 10px; font-size: .8rem; border-radius: 20px; font-weight: 700; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--stroke); }
+    .row:last-child { border-bottom: none; }
+    .label { font-weight: 800; color: var(--primary); font-family: 'Orbitron', sans-serif; font-size: .9rem; }
+    .value { color: var(--light); font-size: .95rem; word-break: break-word; text-align: right; }
+    .msg { padding: 20px; text-align: center; }
+    .msg.loading { color: var(--primary); }
+    .msg.error { color: #ff6b7a; }
+
+    /* ===== SERVICES LIST & FAQ ===== */
+    .feature-list { list-style: none; padding: 0; margin-top: 8px; text-align: left; }
+    .feature-list li { padding: 10px 0; border-bottom: 1px solid var(--stroke); display: flex; align-items: center; color: var(--muted); }
+    .feature-list li:last-child { border-bottom: none; }
+    .feature-list i { margin-right: 12px; color: var(--primary); width: 20px; text-align: center; }
+    .faq-item { text-align: left; margin-bottom: 12px; }
+    .faq-item strong { color: var(--primary); display: block; margin-bottom: 4px; }
+    .faq-item p { text-align: left; font-size: .9rem; }
+
+    /* ===== FOOTER & WA FLOAT ===== */
+    footer { padding: 28px 18px 40px; text-align: center; font-size: .86rem; color: var(--muted); position: relative; margin-top: 30px; }
+    footer::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 240px; height: 1px; background: linear-gradient(90deg, transparent, var(--primary), transparent); opacity: .6; }
+    .footer-links { margin: 10px 0; display: flex; justify-content: center; gap: 20px; }
+    .footer-links a { color: var(--muted); transition: color .2s; }
+    .footer-links a:hover { color: var(--primary); }
+    .floating-wa { position: fixed; bottom: 22px; right: 22px; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.7rem; box-shadow: 0 10px 26px rgba(0,0,0,.35); z-index: 50; transition: .2s; }
+    .floating-wa:hover { transform: scale(1.08) translateY(-2px); }
+
+    /* ===== AD MODAL (Unchanged) ===== */
+    .modal{position:fixed;inset:0;display:none;opacity:0;align-items:center;justify-content:center;z-index:1000;background:rgba(5,10,16,.92);backdrop-filter:blur(8px);transition:opacity .3s}
+    .modal-content{background:var(--bg-card);border:1px solid var(--primary);box-shadow:0 0 30px rgba(0, 170, 255, 0.4);border-radius:14px;width:92%;max-width:900px;height:78vh;padding:18px;display:flex;flex-direction:column;transform:scale(.92);transition:transform .3s}
+    .modal.show{display:flex}
+    
+    @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition: none !important;} }
+  </style>
+</head>
+<body>
+  <div class="bg-wrap">
+    <div class="bg-grid"></div>
+  </div>
+
+  <div class="modal" id="adModal">
+    <div class="modal-content">
+      <div style="text-align:center;margin-bottom:10px">
+        <h3 style="color:var(--primary);letter-spacing:2px">SPONSORED MESSAGE</h3>
+        <p style="color:var(--muted)">Please wait... Closing in <span id="countdown" style="font-weight:800;color:var(--light)">10</span> seconds.</p>
+      </div>
+      <div style="flex:1">
+        <div style="width:100%; height:100%; background-image: url('https://i.postimg.cc/RZ1Nkfgb/Untitled.png'); background-size: cover; background-position: center; border-radius: 10px;"></div>
+
+        <!-- <img src="https://i.postimg.cc/RZ1Nkfgb/Untitled.png" alt="Advertisement" style="width:100%; height:100%; border:none; border-radius:10px; object-fit:cover;" /> -->
+        <!-- <iframe src="https://i.postimg.cc/tCYQ6HKc/Untitled.png" title="Advertisement" style="width:100%;height:100%;border:none;border-radius:10px"></iframe> -->
+      </div>
+    </div>
+  </div>
+  
+  
+
+
+
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="brand-title">RabiyanVoid</div>
+      </div>
+      <div class="subtitle" id="subtitle">OWNER = RABIYAN</div>
+    </header>
+
+    <div class="verified">
+      <svg viewBox="0 0 512 512" aria-hidden="true">
+        <defs>
+            <linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00aaff"/>
+                <stop offset="100%" stop-color="#00ddff"/>
+            </linearGradient>
+        </defs>
+        <path d="M256 24l54.2 38.4 65.5-6.5 24.7 61 61 24.7-6.5 65.5L512 256l-57.1 48.9 6.5 65.5-61 24.7-24.7 61-65.5-6.5L256 488l-54.2-38.4-65.5 6.5-24.7-61-61-24.7 6.5-65.5L0 256l57.1-48.9-6.5-65.5 61-24.7 24.7-61 65.5 6.5L256 24z" fill="url(#gradBlue)"/>
+        <path d="M226 314l-56-56 34-34 22 22 86-86 34 34-120 120z" fill="#fff"/>
+      </svg>
+      <div class="owner">𝑃𝐴𝐾 𝑆𝐼𝑀 𝐷𝐴𝑇𝐴 𝐵𝐴𝑆𝐸</div>
+    </div>
+
+    <div class="main-grid">
+      <section class="card" id="searchCard" style="grid-column: 1 / -1;">
+        <h2>Sim Database Lookup</h2>
+        <div class="hr"></div>
+        <form id="form" class="form" autocomplete="off">
+          <div class="input-wrap">
+            <i class="fa-solid fa-shield-halved"></i>
+            <input id="phone" inputmode="tel" placeholder="Enter number with +92 (e.g. +923001234567)" maxlength="13" />
+          </div>
+          <p class="input-guidance">Enter valid Pakistani number in the format +923001234567</p>
+          <button class="btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </form>
+        <div class="social-icons">
+          <a href="https://wa.me/923047753920" target="_blank" class="social-icon whatsapp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://t.me/pro_promoter" target="_blank" class="social-icon telegram" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+          <a href="mailto:mrmixermrmixer@gmail.com" class="social-icon email" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <div id="result"></div>
+      </section>
+
+      <section class="card">
+        <h2>Our Services</h2>
+        <div class="hr"></div>
+        <ul class="feature-list">
+            <li><i class="fa-solid fa-shield-halved"></i> CNIC / SIM Verification</li>
+            <li><i class="fa-solid fa-database"></i> FAKE SIMS + PASSPORT DETAILS & LIVE LOCATION </li>
+            <li><i class="fa-solid fa-clock-rotate-left"></i> CDR OF ALL NETWORKS</li>
+            <li><i class="fa-solid fa-lock"></i> ALL NADRA DATA AVAILABLE</li>
+        </ul>
+      </section>
+      
+      <section class="card">
+        <h2>about this site</h2>
+        <div class="hr"></div>
+        <ul class="feature-list">
+          <li><i class="fa-solid fa-magnifying-glass"></i> <strong>DATA BASE:</strong> This Site Provide you Sim Data Till March 2023.</li>
+          <li><i class="fa-solid fa-star"></i> <strong>Premium Search:</strong> Its Totally 100% Free Website to Fetch Data</li>
+          <li><i class="fa-solid fa-file-invoice"></i> <strong class="remember">Remember:</strong> Info use only.<br>Don’t misuse.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <a href="https://wa.me/923047753920" target="_blank" class="floating-wa" aria-label="Our WhatsApp Channel">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <footer>
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <span>|</span>
+        <a href="#">Terms of Service</a>
+    </div>
+    <p>© 2025 RabiyanVoid | ALL RIGHTS RESERVED</p>
+    <!-- <p>v6.0.0 | OPERATION MERGE</p> -->
+  </footer>
+
+  <script>
+    // ===== UI/UX & ANIMATIONS (SIMPLIFIED) =====
+    (function Animations() {
+      // Reveal cards on scroll
+      (function Reveal() {
+        const els = document.querySelectorAll('.card');
+        const io = new IntersectionObserver(entries => {
+          for (const it of entries) {
+            if (it.isIntersecting) {
+              it.target.classList.add('reveal');
+              io.unobserve(it.target);
+            }
+          }
+        }, { threshold: .12 });
+        els.forEach(e => io.observe(e));
+      })();
+
+      // Ad modal logic
+      (function Ads() {
+        const modal = document.getElementById('adModal'), countdown = document.getElementById('countdown');
+        if (!modal || !countdown) return;
+        let timer;
+        function open() {
+          modal.classList.add('show');
+          modal.style.opacity = '1';
+          modal.querySelector('.modal-content').style.transform = 'scale(1)';
+          let t = 10;
+          countdown.textContent = t;
+          clearInterval(timer);
+          timer = setInterval(() => {
+            t--;
+            countdown.textContent = t;
+            if (t <= 0) close();
+          }, 1000);
+        }
+        function close() {
+          clearInterval(timer);
+          modal.style.opacity = '0';
+          modal.querySelector('.modal-content').style.transform = 'scale(.92)';
+          setTimeout(() => { modal.classList.remove('show') }, 280);
+        }
+        window.__openAd = open;
+        window.__closeAd = close;
+        window.addEventListener('keydown', e => { if (e.key === 'Escape') close() });
+      })();
+    })();
+
+    // ===== DATA FETCH + UX LOGIC (Unchanged) =====
+    (function Data() {
+      const form = document.getElementById('form');
+      const resultDiv = document.getElementById('result');
+      const phoneInput = document.getElementById('phone');
+
+      function show(html) {
+        resultDiv.innerHTML = html;
+        resultDiv.classList.add('show');
+      }
+
+      function formatKey(key) {
+        return key.split('_')
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ');
+      }
+
+      function showError(message) {
+        show(`<div class="msg error"><i class="fas fa-exclamation-triangle" style="font-size:1.4em;margin-bottom:8px"></i><p>${message}</p></div>`);
+      }
+
+      function showPremiumContact(num) {
+        const whatsappNumber = '923058190234';
+        const message = `ASALAMUALILUM BLACK WORLD TEAM I NEED PREMIUM DATA OF THIS NUMBER ${num}`;
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+        const html = `
+          <div class="msg error" style="padding: 25px;">
+              <i class="fas fa-exclamation-triangle" style="font-size:1.6em; margin-bottom:12px;"></i>
+              <p style="font-size: 1.1rem; color: var(--light);">Data Not Available</p>
+              <p style="color: var(--muted); font-size: 0.95rem; margin-top: 8px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                  This data is available in the premium service. Please contact the admin.
+              </p>
+              <a href="${whatsappUrl}" target="_blank" class="social-icon whatsapp" aria-label="Contact Admin on WhatsApp" style="margin-top: 20px; width: 55px; height: 55px; font-size: 1.8rem; background: #25D366;">
+                  <i class="fab fa-whatsapp"></i>
+              </a>
+          </div>`;
+        show(html);
+      }
+
+      async function fetchData(num) {
+        show(`<div class="msg loading"><i class="fas fa-circle-notch fa-spin"></i><p>ACCESSING SECURE DATABASES...</p></div>`);
+        try {
+          const response = await fetch(`https://www.3patticenter.com/famofc/api/database.php?num=${encodeURIComponent(num)}`);
+          if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.statusText}`);
+          }
+          const data = await response.json();
+          if (data.status !== "success" || !data.data || data.data.length === 0) {
+            showPremiumContact(num);
+            return;
+          }
+          displayResults(data.data);
+        } catch (error) {
+          consconsole.error("Fetch error:", error);
+          showError("Network error. Please check your connection and try again.");
+        }
+      }
+
+      function displayResults(records) {
+        let boxesHtml = '';
+        records.forEach(record => {
+          boxesHtml += `<div class="result-box">`;
+          for (const key in record) {
+            const value = record[key] || 'N/A';
+            boxesHtml += `
+              <div class="row">
+                <span class="label">${formatKey(key)}:</span>
+                <span class="value">${value}</span>
+              </div>`;
+          }
+          boxesHtml += `</div>`;
+        });
+        let html = `
+            <div class="result-header">
+              <span>Search Results</span>
+              <span class="result-count">${records.length} ${records.length === 1 ? 'Record' : 'Records'}</span>
+            </div>
+            <div class="result-grid">
+              ${boxesHtml}
+            </div>`;
+        show(html);
+      }
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const num = phoneInput.value.trim();
+        if (!num.startsWith('+92') || num.length !== 13 || isNaN(num.substring(1))) {
+          showError("Please enter a valid Pakistani number in the format +923001234567");
+          return;
+        }
+        fetchData(num);
+        if (window.__openAd) window.__openAd();
+      });
+    })();
+  </script>
+</body>
+</html>
